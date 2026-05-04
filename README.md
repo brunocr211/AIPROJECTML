@@ -6,7 +6,7 @@ logística, regressão regularizada (ajustada com `glmnet`), florestas aleatóri
 (ajustadas com `ranger`) e árvores com reforço de gradiente (ajustadas com
 `xgboost`). Ele foi escrito para ser o mais modular possível, de modo que os usuários
 possam especificar diferentes opções para os modelos de resultado e de escore de propensão
-em `mhatter` e `ehatter`.
+em `mhatter` e `ehatter`
 
 ## instalação
 
