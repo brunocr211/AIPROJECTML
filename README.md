@@ -18,7 +18,7 @@ remotes::install_github(“apoorvalal/aipwML”)
 Este artigo demonstra as funções de estimativa utilizando o conjunto de dados observacionais de Lalonde,
 onde os controles experimentais foram substituídos por
 unidades de controle do PSID, e os estimadores padrão apresentam um viés significativo
-para o efeito experimental de ≈ $1700
+para o efeito experimental de ≈ $1700.
 
 Preparação dos dados
 =========
