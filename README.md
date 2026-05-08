@@ -87,3 +87,36 @@ ipws |> round(3)
     ## [1] -10454 -15260 -17703 -19568 -19442
 
 Ainda está bem ruim. Agora, corte os pscores extremos.
+``` r
+psr = c(0.05, 0.95)
+ipws2 = c(
+  ate_ipw(‘logit’,   w = w, y = y, df = df, fml = fp, psrange = psr),
+  ate_ipw(‘lasso’,   w = w, y = y, df = df, fml = fp, psrange = psr),
+  ate_ipw(‘ridge’,   w = w, y = y, df = df, fml = fp, psrange = psr),
+  ate_ipw(‘rforest’, w = w, y = y, df = df, fml = fp, psrange = psr),
+  ate_ipw(‘xgboost’, w = w, y = y, df = df, fml = fp, psrange = psr)
+)
+
+ipws2 |> round(3)
+```
+
+    ## [1] -1356,4 -1144,8 -1623,8   361,6  2971,2
+
+Melhor.
+
+IPW Aumentado
+=============
+
+$$
+\\hat{\\tau}\_{\\mathrm{AIPW}}^{\\text{ATE}} =
+  \\frac{1}{N} \\sum\_{i=1}^{N}
+  \\left\[\\left(
+    \\hat{m}\_{1}\\left(x\_{i}\\right)+\\frac{w\_{i}}{\\hat{e}\\left(x\_{i}\\right)}
+    \\left(y\_{i}-\\hat{m}\_{1}\\left(x\_{i}\\right)\\right)\\right) -
+    \\left(\\hat{m}\_{0}\\left(x\_{i}\\right)+\\frac{1-w\_{i}}{1-\\hat{e}\\left(x\_{i}\\right)}
+    \\left(y\_{i}-\\hat{m}\_{0}\\left(x\_{i}\\right)\\right)\\right)\\right\]
+$$
+
+Precisamos de escolher como estimar *e* e *m*, pelo que realizamos uma pesquisa exaustiva.
+Para cada escolha de modelo de resultados, tento todos os outros ajustadores para
+o p-score.
