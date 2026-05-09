@@ -120,3 +120,25 @@ $$
 Precisamos de escolher como estimar *e* e *m*, pelo que realizamos uma pesquisa exaustiva.
 Para cada escolha de modelo de resultados, tento todos os outros ajustadores para
 o p-score.
+
+É necessário escolher como estimar *e* e *m*, pelo que realizamos uma pesquisa exaustiva.
+Para cada escolha de modelo de resultado, testo todos os outros estimadores para
+o pscore.
+
+Modelo de resultado OLS
+-----------------
+
+``` r
+ols_mean = c(
+  ate_aipw(fit_me(meanfn = ‘ols’, pscorefn = ‘logit’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr),
+  ate_aipw(fit_me(meanfn = ‘ols’, pscorefn = ‘lasso’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr),
+  ate_aipw(fit_me(meanfn = ‘ols’, pscorefn = ‘ridge’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr),
+  ate_aipw(fit_me(meanfn = ‘ols’, pscorefn = ‘rforest’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr),
+  ate_aipw(fit_me(meanfn = ‘ols’, pscorefn = ‘xgboost’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr)
+)
+```
