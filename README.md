@@ -142,3 +142,41 @@ ols_mean = c(
     mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr)
 )
 ```
+Modelo de resultados Ridge
+-------------------
+
+``` r
+ridge_mean = c(
+  ate_aipw(fit_me(meanfn = ‘ridge’, pscorefn = ‘logit’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr),
+  ate_aipw(fit_me(meanfn = ‘ridge’, pscorefn = ‘lasso’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr),
+  ate_aipw(fit_me(meanfn = ‘ridge’, pscorefn = ‘ridge’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr),
+  ate_aipw(fit_me(meanfn = ‘ridge’, pscorefn = ‘rforest’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr),
+  ate_aipw(fit_me(meanfn = ‘ridge’, pscorefn = ‘xgboost’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr)
+)
+```
+
+Modelo de resultado LASSO
+-------------------
+
+``` r
+lasso_mean = c(
+  ate_aipw(fit_me(meanfn = ‘lasso’, pscorefn = ‘logit’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr),
+  ate_aipw(fit_me(meanfn = ‘lasso’, pscorefn = ‘lasso’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr),
+  ate_aipw(fit_me(meanfn = ‘lasso’, pscorefn = ‘ridge’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr),
+  ate_aipw(fit_me(meanfn = ‘lasso’, pscorefn = ‘rforest’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr),
+  ate_aipw(fit_me(meanfn = ‘lasso’, pscorefn = ‘xgboost’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr)
+)
+```
+
+Modelo de resultados da Floresta Aleatória
+---------------------------
