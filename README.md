@@ -180,3 +180,35 @@ lasso_mean = c(
 
 Modelo de resultados da Floresta Aleatória
 ---------------------------
+``` r
+rforest_mean = c(
+  ate_aipw(fit_me(meanfn = ‘rforest’, pscorefn = ‘logit’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr),
+  ate_aipw(fit_me(meanfn = ‘rforest’, pscorefn = ‘lasso’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr),
+  ate_aipw(fit_me(meanfn = ‘rforest’, pscorefn = ‘ridge’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr),
+  ate_aipw(fit_me(meanfn = ‘rforest’, pscorefn = ‘rforest’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr),
+  ate_aipw(fit_me(meanfn = ‘rforest’, pscorefn = ‘xgboost’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr)
+)
+```
+
+Modelo de resultado GBM
+-----------------
+
+``` r
+xgboost_mean = c(
+  ate_aipw(fit_me(meanfn = ‘xgboost’, pscorefn = ‘logit’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr),
+  ate_aipw(fit_me(meanfn = ‘xgboost’, pscorefn = ‘lasso’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr),
+  ate_aipw(fit_me(meanfn = ‘xgboost’, pscorefn = ‘ridge’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr),
+  ate_aipw(fit_me(meanfn = ‘xgboost’, pscorefn = ‘rforest’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr),
+  ate_aipw(fit_me(meanfn = ‘xgboost’, pscorefn = ‘xgboost’,
+    mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr)
+)
+```
