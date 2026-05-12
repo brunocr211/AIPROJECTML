@@ -212,3 +212,149 @@ xgboost_mean = c(
     mean_fml = fo, psc_fml = fp, y = y, w = w, df = df), psrange = psr)
 )
 ```
+Tabela AIPW
+----------
+
+``` r
+# empilhar estimativas
+aipw_estimates = rbind(ols_mean, lasso_mean, ridge_mean, rforest_mean, xgboost_mean)
+colnames(aipw_estimates) = c(‘PS: logit’, ‘PS: lasso’, ‘PS: ridge’,
+  'PS: rforest', ‘PS: xgboost’)
+rownames(aipw_estimates)= c(‘Resultado: ols’, ‘Resultado: lasso’, ‘Resultado: ridge’,
+  ‘Resultado: rforest’, ‘Resultado: xgboost’)
+aipw_estimates |> kbl() %>%
+  kable_styling()
+```
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+PS: logit
+</th>
+<th style="text-align:right;">
+PS: lasso
+</th>
+<th style="text-align:right;">
+PS: ridge
+</th>
+<th style="text-align:right;">
+PS: rforest
+</th>
+<th style="text-align:right;">
+PS: xgboost
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Outcome: ols
+</td>
+<td style="text-align:right;">
+56.49
+</td>
+<td style="text-align:right;">
+1.199
+</td>
+<td style="text-align:right;">
+-519.4
+</td>
+<td style="text-align:right;">
+439.2
+</td>
+<td style="text-align:right;">
+3227
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Outcome: lasso
+</td>
+<td style="text-align:right;">
+-236.96
+</td>
+<td style="text-align:right;">
+-74.295
+</td>
+<td style="text-align:right;">
+-909.8
+</td>
+<td style="text-align:right;">
+558.7
+</td>
+<td style="text-align:right;">
+3213
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Outcome: ridge
+</td>
+<td style="text-align:right;">
+-245.79
+</td>
+<td style="text-align:right;">
+-478.324
+</td>
+<td style="text-align:right;">
+-620.9
+</td>
+<td style="text-align:right;">
+189.8
+</td>
+<td style="text-align:right;">
+3247
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Outcome: rforest
+</td>
+<td style="text-align:right;">
+-197.46
+</td>
+<td style="text-align:right;">
+110.549
+</td>
+<td style="text-align:right;">
+-355.1
+</td>
+<td style="text-align:right;">
+764.2
+</td>
+<td style="text-align:right;">
+3202
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Outcome: xgboost
+</td>
+<td style="text-align:right;">
+-320.45
+</td>
+<td style="text-align:right;">
+6.479
+</td>
+<td style="text-align:right;">
+-879.7
+</td>
+<td style="text-align:right;">
+307.1
+</td>
+<td style="text-align:right;">
+3249
+</td>
+</tr>
+</tbody>
+</table>
+
+Uma *linha ou coluna* relativamente estável na tabela acima sugere que
+acertamos em uma das duas funções de interferência. Neste caso, parece
+que a função pscore do GBM produz estimativas estáveis em todas as opções
+de modelos de resultado.
+
+Uso manual para inferência, outros estimandos
