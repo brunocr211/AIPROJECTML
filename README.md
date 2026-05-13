@@ -358,3 +358,49 @@ que a função pscore do GBM produz estimativas estáveis em todas as opções
 de modelos de resultado.
 
 Uso manual para inferência, outros estimandos
+=========================================
+
+A função `fit_me` ajusta as `m` funções e a função `e` para cada
+observação e retorna um conjunto de dados que pode ser usado para
+cálculos manuais.
+
+``` r
+library(data.table)
+fit_mod = fit_me(meanfn = ‘xgboost’, pscorefn = ‘xgboost’,
+    mean_fml = fo, psc_fml  = fp, y = y, w = w, df = df)
+setDT(fit_mod)
+fit_mod |> head()
+```
+
+    ##          y     w    m0      m1     eh
+    ##      <num> <num> <num>   <num>  <num>
+    ## 1:  9930,0     1  9017  9929,8 0,9657
+    ## 2:  3595,9     1 11787  3593,9 1,0012
+    ## 3: 24909,5     1  3748 24906,3 0,9887
+    ## 4:  7506,1     1  8709  2685,8 1,0012
+    ## 5:   289,8     1  2021   291,1 0,9965
+    ## 6:  4056,5     1  6751  4060,6 0,9889
+
+recortar pontuações P extremas antes do AIPW
+---------------- ----------------
+
+``` r
+fit_mod |> ate_aipw(c(0.1, 0.9)) |> round(3)
+```
+
+    ## [1] 2893
+
+bootstrap
+---------
+
+``` r
+library(boot); library(MASS)
+boot.fn <- function(data, ind){
+  d = data[ind, ]
+  fit_mod = fit_me(meanfn = ‘lasso’, pscorefn = ‘lasso’,
+    mean_fml = fo, psc_fml  = fp, y = y, w = w, df = d) |>
+    ate_aipw(c(0.1, 0.9))
+}
+out = boot(df, boot.fn, R = 100)
+out |> print()
+```
