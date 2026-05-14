@@ -404,3 +404,27 @@ boot.fn <- function(data, ind){
 out = boot(df, boot.fn, R = 100)
 out |> print()
 ```
+   ## 
+    ## BOOTSTRAP NÃO PARAMÉTRICO ORDINÁRIO
+    ## 
+    ## 
+    ## Chamada:
+    ## boot(data = df, statistic = boot.fn, R = 100)
+    ## 
+    ## 
+    ## Estatísticas do Bootstrap:
+    ##     original  viés    erro padrão
+    ## t1*      342    -101        1023
+
+ATT
+---
+
+o ATT subdivide as unidades tratadas e calcula a média entre o
+*Y* realizado e o *Y* imputado (0), o que pode ser feito facilmente com nossas
+estimativas.
+
+``` r
+fit_mod[w == 1, mean(y - m0)] |> round(3)
+```
+
+    ## [1] 1796
